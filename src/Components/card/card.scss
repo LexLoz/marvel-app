@@ -1,0 +1,256 @@
+$background-color: #d8d8d8;
+
+@mixin flexRow() {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 95%;
+    margin: 0 auto;
+}
+
+@mixin borderBottom() {
+    border: 1px black solid;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+@mixin label() {
+    @include borderBottom();
+    background-color: rgb(71, 71, 71);
+    color: white;
+}
+
+@mixin cardForm() {
+    width: 15rem;
+    height: 30rem;
+    margin: 1.5rem 1rem;
+    @include borderBottom();
+}
+
+@mixin iconSize() {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+@mixin cost() {
+    background-color: rgb(69, 255, 255);
+    border: 1px rgb(56, 207, 207) solid;
+}
+
+.hero-card {
+    position: relative;
+    perspective: 1000px;
+
+    &__attribute-values {
+        font-size: 1.2rem;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            @include iconSize();
+            object-fit: cover;
+        }
+    }
+
+    &__main-attribute {
+        color: orange;
+        -webkit-text-stroke: 0.2px black;
+    }
+}
+
+.hero-card-back,
+.hero-card-front {
+    backface-visibility: hidden;
+    transition: 0.3s all;
+    left: 0;
+    top: 0;
+    -webkit-transition: 0.3s all;
+    -moz-transition: 0.3s all;
+    -ms-transition: 0.3s all;
+    -o-transition: 0.3s all;
+}
+
+.hero-card-back {
+    transform: rotateY(180deg);
+    background-color: $background-color;
+    position: absolute;
+    @include cardForm();
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+
+    &__column1 &__base-params,
+    &__attributes {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    &__column1 {
+        justify-content: space-evenly;
+        width: 63%;
+    }
+
+
+    &__description-window {
+        @include label();
+        padding: 3px;
+
+        &__cost,
+        &__health,
+        &__mana,
+        &__rarity {
+            display: inline;
+            @include label();
+            font-size: 1.1rem;
+            padding: 3px;
+        }
+
+        &__cost {
+            @include cost();
+            color: black;
+        }
+
+        &__health {
+            background-color: red;
+        }
+
+        &__mana {
+            background-color: rgb(145, 145, 255);
+        }
+    }
+
+    &__column2 {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+        justify-content: flex-start;
+        align-items: flex-end;
+    }
+
+    &__rotate-button {
+        @include iconSize();
+    }
+
+    &__abilities {
+        border: 1px black solid;
+        background-color: #bebebe;
+        margin-top: 0.1rem;
+        width: 170%;
+        height: 38%;
+        padding: 2px;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+    }
+
+    button {
+        margin-top: 2px;
+    }
+}
+
+.rotate-front {
+    transform: rotateY(180deg);
+}
+
+.rotate-back {
+    transform: rotateY(360deg);
+}
+
+.hero-card-front {
+    @include cardForm();
+    background-color: $background-color;
+    position: relative;
+
+    &__cost {
+        @include cost();
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50px;
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+        -ms-border-radius: 50px;
+        -o-border-radius: 50px;
+        left: -1rem;
+        top: -1rem;
+        font-size: 1.5rem;
+    }
+
+    &__rotate-button {
+        @include iconSize();
+        position: absolute;
+        right: 5px;
+        top: 5px;
+    }
+
+    &__image {
+        width: 100%;
+        height: 75%;
+        object-fit: cover;
+    }
+
+    &__name {
+        text-align: center;
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        @include label();
+    }
+
+    &__attributes {
+        @include flexRow();
+
+        &__main-attribute {
+            @include label();
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__rarity-orb {
+            width: 15px;
+            height: 25px;
+            border: 1px black solid;
+            border-radius: 50%;
+        }
+
+        &__attributes-sum {
+            @include label();
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            // &:hover {
+            //     color: rgb(185, 185, 253);
+            // }
+
+            p {
+                text-align: center;
+                padding-bottom: 2px;
+            }
+
+            transition: 0.3s all;
+            -webkit-transition: 0.3s all;
+            -moz-transition: 0.3s all;
+            -ms-transition: 0.3s all;
+            -o-transition: 0.3s all;
+        }
+    }
+
+    &__attack-health-label {
+        color: black;
+        font-weight: 700;
+        @include flexRow();
+    }
+}

@@ -1,0 +1,5 @@
+@import "../../Styles/util.scss";
+
+.character-browser {
+    @include pageTemplate();
+}

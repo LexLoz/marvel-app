@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya&family=Marvel&display=swap')s;
+
+@mixin pageTemplate() {
+    padding: 5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    font-family: 'Marvel', sans-serif;
+    background-color: antiquewhite;
+}

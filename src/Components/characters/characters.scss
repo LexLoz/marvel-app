@@ -1,0 +1,43 @@
+@import "../../Styles/util.scss";
+
+.characters {
+    @include pageTemplate();
+    flex-direction: column;
+    padding-bottom: 5rem;
+
+    &__find-character {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    &__list {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;    
+        flex-wrap: wrap;
+        font-size: 1.2rem;
+        height: 10rem;
+    }
+
+    &__hero-page {
+        // display: flex;
+        // flex-direction: column;
+        img {
+            margin: 2rem auto;
+        }
+
+        &__comics-list {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+    }
+
+    &__comics-page {
+        margin-top: 2rem;
+
+        button {
+            margin-top: 2rem;
+        }
+    }
+}
