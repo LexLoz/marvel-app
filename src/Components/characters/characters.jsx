@@ -1,56 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import PageBasis from '../util/page-basis';
-import FindCharacter from './find-character';
+import FindCharacter from './search';
 import "./characters.scss";
 import { useSelector } from 'react-redux';
 import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
-import { generateLinkWithHash } from '../../Util/other';
-import { saveInFavorites } from '../../Util/saver';
-
-function ComicsPage({ comicsData, heroData, index }) {
-    const [comics, setComics] = useState({ empty: true });
-    console.log('comics1', comics)
-    useEffect(() => {
-        console.log('useEffect');
-        if (comics.empty)
-            fetch(generateLinkWithHash(comicsData.resourceURI))
-                .then(response => response.json())
-                .then(data => {
-                    if (data.code === 200) {
-                        const result = data.data.results[0];
-                        setComics(result);
-                    }
-                })
-    });
-    console.log('comicsData', comicsData);
-    console.log('comics2', comics)
-    const imageData = comics.thumbnail;
-
-    return (
-        <div>
-            {!comics.empty ?
-                <div className='characters__comics-page'>
-                    <h2>{comics.title}</h2>
-                    <img src={`${imageData.path}.${imageData.extension}`} alt="title" />
-                    <p>Authots: {comics.creators.items.map(element =>
-                        <p>{element.name} {`(${element.role})`}</p>
-                    )}</p>
-                    <button onClick={() => saveInFavorites(comicsData, `${heroData.id}${index}`, "COMICS")}>Save in Favorites</button>
-                </div>
-                : null}
-        </div>
-    )
-}
+import ComicsPage from './comics-page';
+import Search from './search';
 
 function HeroPage({ heroData }) {
     const comics = heroData.comics.items;
     const { path, url } = useRouteMatch();
     const imageData = heroData.thumbnail;
+    console.log('comics', comics);
     return (
-        <div className='characters__hero-page'>
-            <img src={imageData.path + '.' + imageData.extension} alt={heroData.name} />
+        <div className='hero-page'>
             <h2>{heroData.name}</h2>
-            <ul className='characters__hero-page__comics-list'>
+            <img src={imageData.path + '.' + imageData.extension} alt={heroData.name} />
+            <h3>Comics:</h3>
+            <ul className='hero-page__comics-list'>
                 {comics.map((element, index) => {
                     return <li><Link to={`${url}/${index}`}>{element.name}</Link></li>
                 })}
@@ -58,7 +25,7 @@ function HeroPage({ heroData }) {
             <Switch>
                 {comics.map((element, index) =>
                     <Route path={`${path}/${index}`}>
-                        <ComicsPage comicsData={element} heroData={heroData} index={index} />
+                        <ComicsPage url={element.resourceURI} heroID={heroData.id} />
                     </Route>
                 )}
             </Switch>
@@ -89,7 +56,7 @@ export default function Characters() {
     return (
         <div className='characters'>
             <PageBasis />
-            <FindCharacter />
+            <Search placeholder='Find character...' />
             <CharactersList characters={characters} />
         </div>
     )

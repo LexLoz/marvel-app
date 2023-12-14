@@ -5,14 +5,21 @@ const globalReducersSlice = createSlice({
     initialState: {
         characters: [], 
         url: '',
-        comics: [],
+        comics: {},
     },
     reducers: {
-        reduceSmth: (state, action) => {
-            state[action.payload.key] = action.payload.value;
+        reduceSmth: (state, { type, payload }) => {
+            state[payload.key] = payload.value;
+        },
+        reduceCharacter: (state, { type, payload }) => {
+            state.characters.push(payload.characterData);
+            state.comics[payload.characterData.id] = {};
+        },
+        reduceComics: (state, { type, payload }) => {
+            state.comics[payload.heroKey][payload.comicsKey] = payload.value;
         }
     }
 });
 
-export const { reduceSmth } = globalReducersSlice.actions;
+export const { reduceSmth, reduceComics, reduceCharacter } = globalReducersSlice.actions;
 export default globalReducersSlice.reducer;

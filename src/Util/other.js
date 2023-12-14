@@ -27,9 +27,39 @@ export function findMaxNumberInArray(array) {
         }
     }
 
-    return {key: key, value: maxNumber};
+    return { key: key, value: maxNumber };
 }
 
 export function getPathToChoosenAttributeImage(index) {
     return `./Images/${getImageForChoosenAttribute(index)}`;
+}
+
+export function transformObjectToArray(obj) {
+    if (!obj) {
+        return [];
+    }
+
+    if (Array.isArray(obj)) {
+        return obj;
+    }
+
+    var arr = [];
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            arr.push(obj[key]);
+        }
+    }
+
+    return arr;
+}
+
+export function getKeysOfObjech(obj) {
+    var keys = [];
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            keys.push(key);
+        }
+    }
+
+    return keys;
 }

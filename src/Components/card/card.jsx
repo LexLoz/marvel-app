@@ -1,5 +1,7 @@
 import React, { useRef } from 'react'
 import NoCards from '../util/no-cards';
+import { Link } from "react-router-dom";
+
 import "./card.scss";
 
 import {
@@ -15,6 +17,7 @@ import {
 import { getPathToChoosenAttributeImage, setBackgroundColor } from '../../Util/other';
 import { ATTRIBUTE_AGILITY, ATTRIBUTE_INTELLIGENCE, ATTRIBUTE_STRENGTH, ATTRIBUTE_VOLITION } from '../../Constants/attributes';
 import { saveInFavorites } from '../../Util/saver';
+import SaveButton from '../util/save-button';
 
 const heroCardPathFront = `hero-card-front`;
 const heroCardPathBack = `hero-card-back`;
@@ -99,10 +102,10 @@ export default function HeroCard(props) {
     front: useRef(null),
     back: useRef(null),
   }
-  const element = props.element;
+  const { characterData } = props;
   const exeption = 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available';
-  const imageData = element.thumbnail;
-  const attributes = element.attributes;
+  const imageData = characterData.thumbnail;
+  const attributes = characterData.attributes;
 
   if (attributes)
     return imageData.path != exeption ?
@@ -110,8 +113,8 @@ export default function HeroCard(props) {
         <div className={`${heroCardPathFront}`} ref={refs.front}>
           <HeroCost cost={attributes.cost} />
           <RotateButtom className={heroCardPathFront} refs={refs} />
-          <HeroImage name={element.name} imageData={imageData} />
-          <HeroName rarity={attributes.rarity} name={element.name} />
+          <HeroImage name={characterData.name} imageData={imageData} />
+          <HeroName rarity={attributes.rarity} name={characterData.name} />
           <HeroAttributes mainAttribute={attributes.main} attributesList={attributes.list} rarity={attributes.rarity} />
           <HeroAttackAndHealth attributes={attributes} />
         </div>
@@ -156,8 +159,9 @@ export default function HeroCard(props) {
           </div>
           <div className={`${heroCardPathBack}__column2`}>
             <RotateButtom className={heroCardPathBack} refs={refs}/>
-            <p className={`${heroCardPathBack}__abilities`}>Abilities descriotion</p>
-            <button onClick={() => saveInFavorites(props, props.element.id, 'CARD')}>Save</button>
+            <p className={`${heroCardPathBack}__abilities`}>Abilities description</p>
+            <SaveButton data={characterData} keyForSaver={characterData.id} type='CARD' />
+            <Link to={`characters/${characterData.id}`}><button>Character Page</button></Link>
           </div>
         </div>
       </div>)

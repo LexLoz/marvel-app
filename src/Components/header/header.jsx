@@ -11,7 +11,8 @@ const Game = React.lazy(() => import("../game/game"));
 const Favorites = React.lazy(() => import("../favorites/favorites"));
 
 export default function Header() {
-  const currentUrl = useSelector(state => state.global.url)
+  const currentUrl = useSelector(state => state.global.url);
+  const characters = useSelector(state => state.global.characters)
   return (
     <header>
       <Suspense fallback={<Loading />}>
@@ -24,7 +25,9 @@ export default function Header() {
             <li><Link to="/game" className={currentUrl == "/game" ? "header__list--choosen" : ''}>Game</Link></li>
           </ul>
           <Switch>
-            <Route exact path="/cards" component={CardBrowser} />
+            <Route path="/cards">
+              <CardBrowser characters={characters}/>
+            </Route>
             <Route path="/characters" component={Characters} />
             <Route path="/favorites" component={Favorites} />
             <Route path="/rules" component={Rules} />

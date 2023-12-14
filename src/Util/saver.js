@@ -2,17 +2,18 @@ export const saverKey = 'marvel-heroes-favorites';
 
 export function saveInFavorites(data, key, type) {
     const savedObjects = loadFavoriteContent();
-    savedObjects[key] = {type: type, data: data};
+    savedObjects[type] = savedObjects[type] || {}
+    savedObjects[type][key] = data;
     const jsonObj = JSON.stringify(savedObjects);
     localStorage.setItem(saverKey, jsonObj);
     return jsonObj;
 }
 
 export function loadFavoriteContent() {
-    return JSON.parse(localStorage.getItem(saverKey)) || [];
+    return JSON.parse(localStorage.getItem(saverKey)) || {};
 }
 
-export function clearStorage() {
+export function clearFavoriteContentStorage() {
     localStorage.setItem(saverKey, null);
 }
 

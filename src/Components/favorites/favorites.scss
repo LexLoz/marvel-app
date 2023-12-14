@@ -1,0 +1,31 @@
+@import "../../Styles/util.scss";
+
+.favorites {
+    @include pageTemplate();
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    &__comics {
+        &__list {
+            @include pageTemplate();
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            & > div {
+                padding: 0.5rem;
+                width: 60vh;
+                border: 1px black solid;
+
+                img {
+                    border: 1px black solid;
+                }
+
+                border-radius: 15px;
+                -webkit-border-radius: 15px;
+                -moz-border-radius: 15px;
+                -ms-border-radius: 15px;
+                -o-border-radius: 15px;
+}
+        }
+    }
+}
