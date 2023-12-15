@@ -4,13 +4,12 @@ export function saveInFavorites(data, key, type) {
     const savedObjects = loadFavoriteContent();
     savedObjects[type] = savedObjects[type] || {}
     savedObjects[type][key] = data;
-    const jsonObj = JSON.stringify(savedObjects);
-    localStorage.setItem(saverKey, jsonObj);
-    return jsonObj;
+    saveInLocalstorage(saverKey, savedObjects)
+    return savedObjects;
 }
 
 export function loadFavoriteContent() {
-    return JSON.parse(localStorage.getItem(saverKey)) || {};
+    return loadFromLocalstorage(saverKey) || {};
 }
 
 export function clearFavoriteContentStorage() {
@@ -20,4 +19,12 @@ export function clearFavoriteContentStorage() {
 export function removeItemFromFavorites(key) {
     const savedObjects = loadFavoriteContent();
     if (savedObjects[key]) savedObjects[key] = null;
+}
+
+export function saveInLocalstorage(key, value = "") {
+    localStorage.setItem(key, typeof value == "object" ? JSON.stringify(value) : value);
+}
+
+export function loadFromLocalstorage(key) {
+    return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : null;
 }
