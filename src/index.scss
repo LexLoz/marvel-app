@@ -1,4 +1,9 @@
 @import "./reset-styles.scss";
+@import "./Components/card-browser/card-browser.scss";
+@import "./Components/card/card.scss";
+@import "./Components/characters/characters.scss";
+@import "./Components/favorites/favorites.scss";
+@import "./Components/header/header.scss";
 
 body {
   margin: 0 auto;

@@ -21,8 +21,8 @@ export default function Header() {
             <li><Link exact to="/cards" className={currentUrl == "/cards" ? "header__list--choosen" : ''}>Cards</Link></li>
             <li><Link to="/characters" className={currentUrl == "/characters" ? "header__list--choosen" : ''}>Characters</Link></li>
             <li><Link to="/favorites" className={currentUrl == "/favorites" ? "header__list--choosen" : ''}>Favorites</Link></li>
-            <li><Link to="/rules" className={currentUrl == "/rules" ? "header__list--choosen" : ''}>Rules</Link></li>
-            <li><Link to="/game" className={currentUrl == "/game" ? "header__list--choosen" : ''}>Game</Link></li>
+            {/* <li><Link to="/rules" className={currentUrl == "/rules" ? "header__list--choosen" : ''}>Rules</Link></li>
+            <li><Link to="/game" className={currentUrl == "/game" ? "header__list--choosen" : ''}>Game</Link></li> */}
           </ul>
           <Switch>
             <Route path="/cards">
@@ -30,8 +30,8 @@ export default function Header() {
             </Route>
             <Route path="/characters" component={Characters} />
             <Route path="/favorites" component={Favorites} />
-            <Route path="/rules" component={Rules} />
-            <Route path="/game" component={Game} />
+            {/* <Route path="/rules" component={Rules} />
+            <Route path="/game" component={Game} /> */}
           </Switch>
         </Router>
       </Suspense>
